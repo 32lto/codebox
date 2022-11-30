@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+これはあれではない、ただの魔方陣です
+{% endblock %}
+
+{% block addhead %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='game/magicNumber/TemplateData/style.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static', filename='game/magicNumber/TemplateData/favicon.ico')}}">
+    <script src="{{url_for('static', filename='game/magicNumber/TemplateData/UnityProgress.js')}}"></script>
+    <script src="{{url_for('static', filename='game/magicNumber/Build/UnityLoader.js')}}"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "{{url_for('static', filename='game/magicNumber/Build/result_Sudoku.json')}}", {onProgress: UnityProgress});
+    </script>
+{% endblock %}
+
+{% block content %}
+  <body>
+    <p>Clearを出す魔法</p>
+    <div class="row">
+      <div class="col">
+          <div id="unityContainer" style="width: 960px; height: 600px"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
+{% endblock %}

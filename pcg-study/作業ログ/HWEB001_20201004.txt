@@ -1,0 +1,36 @@
+
+[2020-10-04 20:16:37.204] #ホスト名変更
+[2020-10-04 20:16:37.204] [ec2-user@ip-172-16-10-197 ~]$ sudo hostnamectl set-hostname www.parallelgame.net
+[2020-10-04 20:16:37.311] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.311] [ec2-user@ip-172-16-10-197 ~]$ #日本語環境（言語）
+[2020-10-04 20:16:37.311] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.334] [ec2-user@ip-172-16-10-197 ~]$ sudo localectl set-locale LANG=ja_JP.utf8
+[2020-10-04 20:16:37.363] 
+[2020-10-04 20:16:37.363] cat /etc/sysconfig/clock
+[2020-10-04 20:16:37.370] [ec2-user@ip-172-16-10-197 ~]$ source /etc/locale.conf
+[2020-10-04 20:16:37.386] sudo cp /etc/sysconfig/clock /etc/sysconfig/clock.org
+[2020-10-04 20:16:37.422] 
+[2020-10-04 20:16:37.422] sudo sed -i -e '1d' /etc/sysconfig/clock
+[2020-10-04 20:16:37.435] sudo sed -i -e '1i # ZONE="UTC"' /etc/sysconfig/clock
+[2020-10-04 20:16:37.485] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.491] [ec2-user@ip-172-16-10-197 ~]$ #UTC→JSTに変更
+[2020-10-04 20:16:37.518] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.518] [ec2-user@ip-172-16-10-197 ~]$ cat /etc/sysconfig/clock
+[2020-10-04 20:16:37.518] ZONE="UTC"
+[2020-10-04 20:16:37.518] UTC=true
+[2020-10-04 20:16:37.518] [ec2-user@ip-172-16-10-197 ~]$ sudo cp /etc/sysconfig/clock /etc/sysconfig/clock.org
+[2020-10-04 20:16:37.526] sudo sed -i -e '2i ZONE="Japan"' /etc/sysconfig/clock
+[2020-10-04 20:16:37.526] cat /etc/sysconfig/clock
+[2020-10-04 20:16:37.526] 
+[2020-10-04 20:16:37.554] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.554] [ec2-user@ip-172-16-10-197 ~]$ sudo sed -i -e '1d' /etc/sysconfig/clock
+[2020-10-04 20:16:37.554] sudo ln -sf /usr/share/zoneinfo/Japan /etc/localtime[ec2-user@ip-172-16-10-197 ~]$ sudo sed -i -e '1i # ZONE="UTC"' /etc/sysconfig/clock
+[2020-10-04 20:16:37.572] [ec2-user@ip-172-16-10-197 ~]$ sudo sed -i -e '2i ZONE="Japan"' /etc/sysconfig/clock
+[2020-10-04 20:16:37.576] [ec2-user@ip-172-16-10-197 ~]$ cat /etc/sysconfig/clock
+[2020-10-04 20:16:37.576] # ZONE="UTC"
+[2020-10-04 20:16:37.576] ZONE="Japan"
+[2020-10-04 20:16:37.576] UTC=true
+[2020-10-04 20:16:37.587] [ec2-user@ip-172-16-10-197 ~]$ 
+[2020-10-04 20:16:37.587] [ec2-user@ip-172-16-10-197 ~]$ sudo ln -sf /usr/share/zoneinfo/Japan /etc/localtime
+[2020-10-04 20:16:49.000] [ec2-user@ip-172-16-10-197 ~]$ cat /etc/localtime
+[2020-10-04 20:17:21.402] ログアウト

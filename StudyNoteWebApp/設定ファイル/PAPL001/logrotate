@@ -1,0 +1,12 @@
+/var/log/uwsgi/*log {
+    compress
+    daily
+    missingok
+    notifempty
+    rotate 7
+    sharedscripts
+    postrotate
+        touch /var/log/uwsgi/touch-logreopen
+    endscript
+}
+

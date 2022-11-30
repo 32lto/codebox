@@ -1,0 +1,11 @@
+
+[ec2-user@hweb001 ~]$ C:/Users/User/Documents/Unity/WebGL/Build C:/Users/User/Documents/Unity/WebGL/TemplateData C:/Users/User/Documents/Unity/WebGL/index.htmlls
+[ec2-user@hweb001 ~]$ ls
+Build  TemplateData  index.html  nginx.conf
+[ec2-user@hweb001 ~]$ sudo -u nginx mkdir /usr/share/nginx/html/unity
+mkdir: ディレクトリ `/usr/share/nginx/html/unity' を作成できません: Permission denied
+[ec2-user@hweb001 ~]$ sudo mkdir /usr/share/nginx/html/unity
+[ec2-user@hweb001 ~]$ sudo mv Build TemplateData index.html /usr/share/nginx/html/unity
+[ec2-user@hweb001 ~]$ ls /usr/share/nginx/html/unity
+Build  TemplateData  index.html
+[ec2-user@hweb001 ~]$ 

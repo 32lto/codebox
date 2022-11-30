@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+PCG-Game
+{% endblock %}
+
+{% block headline %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<p>リアルタイム対戦（Parallel Competition）システムによる楽しいゲームを提供するべく、日々開発したものを公開しています。</p>
+
+<p>ゲーム一覧</p>
+
+<!--Vue.js countainer-->
+<div id="app" class="m-3">
+    <showgame/>
+</div>
+
+{% raw %}
+<script type="text/x-template" id="showgame-template">
+    <div class="row">
+        <template v-for="game in gamegroup">
+            <div class="card col">
+                <div class="card-body">
+                    <h5 class="card-title">{{game.name}}</h5>
+                </div>
+		<a v-bind:href="game.link">
+                    <img class="card-img" v-bind:src="game.img">
+                </a>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{game.text}}
+                    </p>
+                </div>
+            </div>
+        </template>
+    </div>
+</script>
+{% endraw %}
+
+<!--Vue.js script-->
+<script>
+Vue.component('showgame',{
+    template: '#showgame-template',
+    data: function(){
+        return{
+            gamegroup:[
+                {name:'数字魔法陣', img:'/static/image/game_image_mahojin.png', link:'/game/magicNumber/', text:'どこかで見覚えのある数字パズルゲーム。'},
+                {name:'たこやきクソゲー', img:'/static/image/game_image_takokuso.png', link:'/game/tako/' ,text:'たこ焼き消すだけ。クソゲー。'},
+                {name:'鋭意開発中！', img:'/static/image/game_image_comingsoon.png', link:'#' ,text:'リリースまでもうちょっと待ってね！'}
+            ]
+        }
+    }
+});
+
+//Start Vue
+new Vue({
+    el:'#app',
+});
+</script>
+
+{% endblock %}
+

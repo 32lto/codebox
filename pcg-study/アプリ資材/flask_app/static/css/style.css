@@ -1,0 +1,29 @@
+header{
+    background-color: rgb(204, 245, 231);
+}
+
+nav{
+    background-color: rgb(204, 245, 231);
+}
+
+
+body{
+    margin: 10px;
+    background-color: aliceblue;
+}
+h1{
+    color:lightsteelblue;
+    font-size: 36pt;
+    margin: 0px;
+}
+p{
+    font-size: 14pt;
+}
+
+footer{
+    text-align: right;
+    border-bottom: 1px solid darkslategray;
+    color:darkslategray;
+    margin: 50px 0px;
+    background-color: rgb(204, 245, 231);
+}

@@ -1,0 +1,70 @@
+
+[2020-10-05 22:05:26.249] [ec2-user@www ~]$ sudo mkdir /var/config
+[2020-10-05 22:05:34.889] [ec2-user@www ~]$ sudo mkdir /var/config/aws
+[2020-10-05 22:05:41.688] [ec2-user@www ~]$ cd /var/config/aws/
+[2020-10-05 22:05:46.672] [ec2-user@www aws]$ 
+[2020-10-05 22:05:47.119] [ec2-user@www aws]$ #
+[2020-10-05 22:06:00.169] [ec2-user@www aws]$ #Route53のAレコードセットを指示するためのjsonテンプレート
+[2020-10-05 22:06:06.729] [ec2-user@www aws]$ sudo vim dyndns.tmpl
+
+[2020-10-05 22:06:22.219] [ec2-user@www aws]$ 
+[2020-10-05 22:06:25.728] [ec2-user@www aws]$ 
+[2020-10-05 22:06:26.539] [ec2-user@www aws]$ #設定情報を格納する設定ファイル作成
+[2020-10-05 22:06:31.819] [ec2-user@www aws]$ sudo vim settings.conf
+[2020-10-05 22:06:32.989] "settings.conf" [新ファイル]▽  ~                                                             
+[2020-10-05 22:06:43.018] [ec2-user@www aws]$ 
+[2020-10-05 22:06:43.758] [ec2-user@www aws]$ sudo vim settings.conf
+[2020-10-05 22:07:39.972] [ec2-user@www aws]$ #Route53のDNSレコードセットを行うシェルの作成
+[2020-10-05 22:07:56.248] [ec2-user@www aws]$ sudo vim ec2Setup.sh　
+[2020-10-05 22:10:04.308] [ec2-user@www aws]$ 
+[2020-10-05 22:10:04.968] [ec2-user@www aws]$ #シェルに実行権限を付与
+[2020-10-05 22:10:13.208] [ec2-user@www aws]$ sudo chmod +x ec2Setup.sh
+[2020-10-05 22:10:13.278] chmod: `ec2Setup.sh' にアクセスできません: No such file or directory
+[2020-10-05 22:10:13.288] [ec2-user@www aws]$ 
+[2020-10-05 22:10:13.288] [ec2-user@www aws]$ #サービス化して起動時に自動実行させる
+[2020-10-05 22:10:13.288] [ec2-user@www aws]$ sudo vim /usr/lib/systemd/system/ec2-route53.service
+[2020-10-05 22:10:23.388] [ec2-user@www aws]$ 
+[2020-10-05 22:10:23.888] [ec2-user@www aws]$ 
+[2020-10-05 22:10:29.368] [ec2-user@www aws]$ #サービスにも実行権限付与
+[2020-10-05 22:10:29.428] [ec2-user@www aws]$ sudo chmod +x /usr/lib/systemd/system/ec2-route53.service
+[2020-10-05 22:10:29.438] [ec2-user@www aws]$ 
+[2020-10-05 22:10:29.438] [ec2-user@www aws]$ #自動起動をOn
+[2020-10-05 22:10:29.438] [ec2-user@www aws]$ sudo systemctl enable ec2-route53.service
+[2020-10-05 22:10:29.498] Created symlink from /etc/systemd/system/default.target.wants/ec2-route53.service to /usr/lib/systemd/system/ec2-route53.service.
+[2020-10-05 22:10:29.598] [ec2-user@www aws]$ 
+[2020-10-05 22:10:29.598] [ec2-user@www aws]$ 
+[2020-10-05 22:10:31.588] [ec2-user@www aws]$ systemctl isenab-enabled ec2-rpooyuteute53.service
+[2020-10-05 22:10:51.348] enabled
+[2020-10-05 22:10:51.348] [ec2-user@www aws]$ 
+[2020-10-05 22:10:52.888] [ec2-user@www aws]$ exit
+[2020-10-05 22:10:53.488] ログアウト
+
+[2020-10-05 22:18:32.708] 
+[2020-10-05 22:18:32.708] [ec2-user@www ~]$ 
+[2020-10-05 22:18:32.827] [ec2-user@www ~]$ cd /var/config/aws/
+[2020-10-05 22:18:50.908] [ec2-user@www aws]$ ls
+[2020-10-05 22:18:52.237] dyndns.tmpl  ec2Setup.sh　  settings.conf
+[2020-10-05 22:18:52.237] [ec2-user@www aws]$ sudo chmod +x ec2Setup.sh
+[2020-10-05 22:18:59.458] chmod: `ec2Setup.sh' にアクセスできません: No such file or directory
+[2020-10-05 22:18:59.468] [ec2-user@www aws]$ sudo chmod +x ec2Setup.shup.sh　 h
+[2020-10-05 22:19:18.019] chmod: `ec2Setup.sh' にアクセスできません: No such file or directory
+[2020-10-05 22:19:18.024] [ec2-user@www aws]$ sudo chmod 
+[2020-10-05 22:19:25.658] chmod: オペランドがありません
+[2020-10-05 22:19:25.658] Try 'chmod --help' for more information.
+[2020-10-05 22:19:25.658] [ec2-user@www aws]$ ls
+[2020-10-05 22:19:30.758] dyndns.tmpl  ec2Setup.sh　  settings.conf
+[2020-10-05 22:19:30.758] [ec2-user@www aws]$ ls -l
+[2020-10-05 22:19:32.078] 合計 12
+[2020-10-05 22:19:32.078] -rw-r--r-- 1 root root 375 10月  5 22:06 dyndns.tmpl
+[2020-10-05 22:19:32.078] -rw-r--r-- 1 root root 673 10月  5 22:10 ec2Setup.sh　
+[2020-10-05 22:19:32.078] -rw-r--r-- 1 root root 140 10月  5 22:07 settings.conf
+[2020-10-05 22:19:32.078] [ec2-user@www aws]$ 
+[2020-10-05 22:19:33.028] [ec2-user@www aws]$ ls -lsudo chmod +x ec2Setup.sh /var/config/aws/ec2Setup.sh
+[2020-10-05 22:20:03.638] chmod: `/var/config/aws/ec2Setup.sh' にアクセスできません: No such file or directory
+[2020-10-05 22:20:03.647] [ec2-user@www aws]$ sudo chmod +x /var/config/aws/ec2Setup.sh 
+[2020-10-05 22:21:50.205] chmod: `/var/config/aws/ec2Setup.sh' にアクセスできません: No such file or directory
+[2020-10-05 22:21:50.205] [ec2-user@www aws]$ sudo bvimvim /var/etc2Setup.sh　 
+[2020-10-05 22:22:27.269] [ec2-user@www aws]$ sudo mv ec2Setup.sh　  ec2Setup.shvim ec2Setup.sh　 chmod +x /var/config/aws/ec2Setup.sh
+[2020-10-05 22:22:31.890] [ec2-user@www aws]$ 
+[2020-10-05 22:22:33.738] [ec2-user@www aws]$ exit
+[2020-10-05 22:22:35.329] ログアウト

@@ -1,0 +1,139 @@
+
+[2020-10-12 07:35:16.056] #ホスト名変更
+[2020-10-12 07:35:16.056] [ec2-user@ip-172-16-10-238 ~]$ sudo hostnamectl set-hostname www.parallelgame.net
+[2020-10-12 07:35:16.166] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.166] [ec2-user@ip-172-16-10-238 ~]$ #日本語環境（言語）
+[2020-10-12 07:35:16.166] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.166] [ec2-user@ip-172-16-10-238 ~]$ sudo localectl set-locale LANG=ja_JP.utf8
+[2020-10-12 07:35:16.206] [ec2-user@ip-172-16-10-238 ~]$ source /etc/locale.conf
+[2020-10-12 07:35:16.216] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.216] [ec2-user@ip-172-16-10-238 ~]$ #UTC→JSTに変更
+[2020-10-12 07:35:16.216] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.236] [ec2-user@ip-172-16-10-238 ~]$ cat /etc/sysconfig/clock
+[2020-10-12 07:35:16.286] ZONE="UTC"
+[2020-10-12 07:35:16.286] UTC=true
+[2020-10-12 07:35:16.286] [ec2-user@ip-172-16-10-238 ~]$ sudo cp /etc/sysconfig/clock /etc/sysconfig/clock.org
+[2020-10-12 07:35:16.286] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.286] [ec2-user@ip-172-16-10-238 ~]$ sudo sed -i -e '1d' /etc/sysconfig/clock
+[2020-10-12 07:35:16.301] cat /etc/sysconfig/clock
+[2020-10-12 07:35:16.301] [ec2-user@ip-172-16-10-238 ~]$ sudo sed -i -e '1i # ZONE="UTC"' /etc/sysconfig/clock
+[2020-10-12 07:35:16.306] [ec2-user@ip-172-16-10-238 ~]$ sudo sed -i -e '2i ZONE="Japan"' /etc/sysconfig/clock
+[2020-10-12 07:35:16.316] [ec2-user@ip-172-16-10-238 ~]$ cat /etc/sysconfig/clock
+[2020-10-12 07:35:16.316] # ZONE="UTC"
+[2020-10-12 07:35:16.316] ZONE="Japan"
+[2020-10-12 07:35:16.316] UTC=true
+[2020-10-12 07:35:16.326] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.346] [ec2-user@ip-172-16-10-238 ~]$ sudo ln -sf /usr/share/zoneinfo/Japan /etc/localtime
+[2020-10-12 07:35:16.346] 
+[2020-10-12 07:35:16.346] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:35:16.346] [ec2-user@ip-172-16-10-238 ~]$ sudo hostnamectl set-hostname apl.parallelgame.net
+[2020-10-12 07:35:31.486] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:36:17.676] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:36:17.836] [ec2-user@ip-172-16-10-238 ~]$ #Route53 Aレコード自動セットスクリプトの準備
+[2020-10-12 07:36:23.766] [ec2-user@ip-172-16-10-238 ~]$ sudo mkdir /var/config
+[2020-10-12 07:36:28.446] [ec2-user@ip-172-16-10-238 ~]$ cd /var/config
+[2020-10-12 07:36:32.826] [ec2-user@ip-172-16-10-238 config]$ # "Route53_Aレコード自動書き換えスクリプト"の"aws"ディレクトリを/var/configにドラッグして配置
+[2020-10-12 07:36:37.917] [ec2-user@ip-172-16-10-238 config]$ # ディレクトリごと貼り付けできなかったので、先にaawws ディレクトリ作成してから配置する方針に
+[2020-10-12 07:38:01.776] [ec2-user@ip-172-16-10-238 config]$ cd /var/config/aws
+[2020-10-12 07:38:14.126] -bash: cd: /var/config/aws: No such file or directory
+[2020-10-12 07:38:14.126] [ec2-user@ip-172-16-10-238 config]$ sudo mkdir -p /var/config/aws
+[2020-10-12 07:38:31.516] [ec2-user@ip-172-16-10-238 config]$ cd /var/config/aws
+[2020-10-12 07:38:34.386] [ec2-user@ip-172-16-10-238 aws]$ # permission敵に的にできなかったのでホームディレクトリに配置
+[2020-10-12 07:39:29.516] [ec2-user@ip-172-16-10-238 aws]$ cd
+[2020-10-12 07:39:31.756] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:39:33.126] ec2Setup.sh  settings.conf
+[2020-10-12 07:39:33.126] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:39:46.066] dyndns.tmpl  ec2Setup.sh  settings.conf
+[2020-10-12 07:39:46.066] [ec2-user@ip-172-16-10-238 ~]$ cd sudo cp . * /var/config/aws
+[2020-10-12 07:40:06.426] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:40:07.906] dyndns.tmpl  ec2Setup.sh  settings.conf
+[2020-10-12 07:40:07.906] [ec2-user@ip-172-16-10-238 ~]$ ls /var/config/aws
+[2020-10-12 07:40:15.916] dyndns.tmpl  ec2Setup.sh  settings.conf
+[2020-10-12 07:40:15.916] [ec2-user@ip-172-16-10-238 ~]$ sudo rm -R dyndns.tmpl ec2Setup.sh settings.conf 
+[2020-10-12 07:40:32.256] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:40:33.476] [ec2-user@ip-172-16-10-238 ~]$ ls -a /var/config/aws
+[2020-10-12 07:42:18.486] .  ..  dyndns.tmpl  ec2Setup.sh  settings.conf
+[2020-10-12 07:42:18.486] [ec2-user@ip-172-16-10-238 ~]$ sudo chmod +x /var/config/aws/ec2Setup.sh
+[2020-10-12 07:46:06.885] [ec2-user@ip-172-16-10-238 ~]$ ls -l /var/config/aws
+[2020-10-12 07:46:27.215] 合計 12
+[2020-10-12 07:46:27.215] -rw-r--r-- 1 root root 375 10月 12 07:40 dyndns.tmpl
+[2020-10-12 07:46:27.215] -rwxr-xr-x 1 root root 673 10月 12 07:40 ec2Setup.sh
+[2020-10-12 07:46:27.215] -rw-r--r-- 1 root root 140 10月 12 07:40 settings.conf
+[2020-10-12 07:46:27.215] [ec2-user@ip-172-16-10-238 ~]$ #ローカルのエクスプローラから "Route53_Aレコード自動書き換えスクリプト"の"ec2-route53.service"をteratermターミナルにドラッグしてホームディレクトリに配置
+[2020-10-12 07:46:46.336] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:46:57.005] ec2-route53.service
+[2020-10-12 07:46:57.005] [ec2-user@ip-172-16-10-238 ~]$ sudo cp ec2-route53.service /usr/lib/systemd/system/
+[2020-10-12 07:47:27.805] [ec2-user@ip-172-16-10-238 ~]$ ls /usr/lib/systemd/system/
+[2020-10-12 07:47:28.520] -.slice                                 ec2net-ifup@.service               nfs-blkmap.service                 rpcbind.socket                                 systemd-halt.service
+[2020-10-12 07:47:28.520] acpid.service                           ec2net-scan.service                nfs-client.target                  rpcbind.target                                 systemd-hibernate-resume@.service
+[2020-10-12 07:47:28.520] amazon-ssm-agent.service                emergency.service                  nfs-config.service                 rpcgssd.service                                systemd-hibernate.service
+[2020-10-12 07:47:28.520] amzn2-early-relabel-modules.service     emergency.target                   nfs-idmap.service                  rpcidmapd.service                              systemd-hostnamed.service
+[2020-10-12 07:47:28.520] arp-ethers.service                      final.target                       nfs-idmapd.service                 rsyncd.service                                 systemd-hwdb-update.service
+[2020-10-12 07:47:28.532] atd.service                             fstrim.service                     nfs-lock.service                   rsyncd.socket                                  systemd-hybrid-sleep.service
+[2020-10-12 07:47:28.532] auditd.service                          fstrim.timer                       nfs-mountd.service                 rsyncd@.service                                systemd-importd.service
+[2020-10-12 07:47:28.532] auth-rpcgss-module.service              getty-pre.target                   nfs-rquotad.service                rsyslog.service                                systemd-initctl.service
+[2020-10-12 07:47:28.532] autovt@.service                         getty.target                       nfs-secure.service                 runlevel0.target                               systemd-initctl.socket
+[2020-10-12 07:47:28.556] basic.target                            getty@.service                     nfs-server.service                 runlevel1.target                               systemd-journal-catalog-update.service
+[2020-10-12 07:47:28.556] basic.target.wants                      graphical.target                   nfs-utils.service                  runlevel1.target.wants                         systemd-journal-flush.service
+[2020-10-12 07:47:28.556] blk-availability.service                graphical.target.wants             nfs.service                        runlevel2.target                               systemd-journald.service
+[2020-10-12 07:47:28.556] bluetooth.target                        gssproxy.service                   nfslock.service                    runlevel2.target.wants                         systemd-journald.socket
+[2020-10-12 07:47:28.556] brandbot.path                           halt-local.service                 nss-lookup.target                  runlevel3.target                               systemd-kexec.service
+[2020-10-12 07:47:28.565] brandbot.service                        halt.target                        nss-user-lookup.target             runlevel3.target.wants                         systemd-localed.service
+[2020-10-12 07:47:28.565] chrony-dnssrv@.service                  halt.target.wants                  paths.target                       runlevel4.target                               systemd-logind.service
+[2020-10-12 07:47:28.565] chrony-dnssrv@.timer                    hibagent.service                   plymouth-halt.service              runlevel4.target.wants                         systemd-machine-id-commit.service
+[2020-10-12 07:47:28.565] chrony-wait.service                     hibernate.target                   plymouth-kexec.service             runlevel5.target                               systemd-machined.service
+[2020-10-12 07:47:28.565] chronyd.service                         hibinit-agent.service              plymouth-poweroff.service          runlevel5.target.wants                         systemd-modules-load.service
+[2020-10-12 07:47:28.565] cloud-config.service                    hybrid-sleep.target                plymouth-quit-wait.service         runlevel6.target                               systemd-nspawn@.service
+[2020-10-12 07:47:28.580] cloud-config.target                     initrd-cleanup.service             plymouth-quit.service              selinux-policy-migrate-local-changes@.service  systemd-poweroff.service
+[2020-10-12 07:47:28.580] cloud-final.service                     initrd-fs.target                   plymouth-read-write.service        serial-getty@.service                          systemd-quotacheck.service
+[2020-10-12 07:47:28.580] cloud-init-local.service                initrd-parse-etc.service           plymouth-reboot.service            shutdown.target                                systemd-random-seed.service
+[2020-10-12 07:47:28.580] cloud-init.service                      initrd-root-fs.target              plymouth-start.service             shutdown.target.wants                          systemd-readahead-collect.service
+[2020-10-12 07:47:28.580] cloud-init.target                       initrd-switch-root.service         plymouth-switch-root.service       sigpwr.target                                  systemd-readahead-done.service
+[2020-10-12 07:47:28.585] console-getty.service                   initrd-switch-root.target          postfix.service                    sleep.target                                   systemd-readahead-done.timer
+[2020-10-12 07:47:28.585] console-shell.service                   initrd-switch-root.target.wants    poweroff.target                    slices.target                                  systemd-readahead-drop.service
+[2020-10-12 07:47:28.585] container-getty@.service                initrd-udevadm-cleanup-db.service  poweroff.target.wants              smartcard.target                               systemd-readahead-replay.service
+[2020-10-12 07:47:28.585] crond.service                           initrd.target                      printer.target                     sockets.target                                 systemd-reboot.service
+[2020-10-12 07:47:28.585] cryptsetup-pre.target                   initrd.target.wants                proc-fs-nfsd.mount                 sockets.target.wants                           systemd-remount-fs.service
+[2020-10-12 07:47:28.595] cryptsetup.target                       irqbalance.service                 proc-sys-fs-binfmt_misc.automount  sound.target                                   systemd-rfkill@.service
+[2020-10-12 07:47:28.595] ctrl-alt-del.target                     kexec.target                       proc-sys-fs-binfmt_misc.mount      sshd-keygen.service                            systemd-shutdownd.service
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.hostname1.service  kexec.target.wants                 psacct.service                     sshd.service                                   systemd-shutdownd.socket
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.import1.service    kmod-static-nodes.service          quotaon.service                    sshd.socket                                    systemd-suspend.service
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.locale1.service    kpatch.service                     rc-local.service                   sshd@.service                                  systemd-sysctl.service
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.login1.service     libstoragemgmt.service             rdisc.service                      suspend.target                                 systemd-timedated.service
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.machine1.service   local-fs-pre.target                reboot.target                      swap.target                                    systemd-tmpfiles-clean.service
+[2020-10-12 07:47:28.595] dbus-org.freedesktop.timedate1.service  local-fs.target                    reboot.target.wants                sys-fs-fuse-connections.mount                  systemd-tmpfiles-clean.timer
+[2020-10-12 07:47:28.595] dbus.service                            local-fs.target.wants              remote-cryptsetup.target           sys-kernel-config.mount                        systemd-tmpfiles-setup-dev.service
+[2020-10-12 07:47:28.595] dbus.socket                             lvm2-lvmetad.service               remote-fs-pre.target               sys-kernel-debug.mount                         systemd-tmpfiles-setup.service
+[2020-10-12 07:47:28.595] dbus.target.wants                       lvm2-lvmetad.socket                remote-fs.target                   sysinit.target                                 systemd-udev-settle.service
+[2020-10-12 07:47:28.605] debug-shell.service                     lvm2-lvmpolld.service              rescue.service                     sysinit.target.wants                           systemd-udev-trigger.service
+[2020-10-12 07:47:28.605] default.target                          lvm2-lvmpolld.socket               rescue.target                      syslog.socket                                  systemd-udevd-control.socket
+[2020-10-12 07:47:28.605] default.target.wants                    lvm2-monitor.service               rescue.target.wants                syslog.target.wants                            systemd-udevd-kernel.socket
+[2020-10-12 07:47:28.605] dev-hugepages.mount                     lvm2-pvscan@.service               rhel-autorelabel-mark.service      sysstat.service                                systemd-udevd.service
+[2020-10-12 07:47:28.605] dev-mqueue.mount                        machine.slice                      rhel-autorelabel.service           system-update.target                           systemd-update-done.service
+[2020-10-12 07:47:28.616] dm-event.service                        machines.target                    rhel-configure.service             system.slice                                   systemd-update-utmp-runlevel.service
+[2020-10-12 07:47:28.616] dm-event.socket                         mdadm-grow-continue@.service       rhel-dmesg.service                 systemd-ask-password-console.path              systemd-update-utmp.service
+[2020-10-12 07:47:28.616] dmraid-activation.service               mdadm-last-resort@.service         rhel-domainname.service            systemd-ask-password-console.service           systemd-user-sessions.service
+[2020-10-12 07:47:28.616] dracut-cmdline.service                  mdadm-last-resort@.timer           rhel-import-state.service          systemd-ask-password-plymouth.path             systemd-vconsole-setup.service
+[2020-10-12 07:47:28.616] dracut-initqueue.service                mdmon@.service                     rhel-loadmodules.service           systemd-ask-password-plymouth.service          teamd@.service
+[2020-10-12 07:47:28.616] dracut-mount.service                    mdmonitor.service                  rhel-readonly.service              systemd-ask-password-wall.path                 time-sync.target
+[2020-10-12 07:47:28.616] dracut-pre-mount.service                messagebus.service                 rngd.service                       systemd-ask-password-wall.service              timers.target
+[2020-10-12 07:47:28.616] dracut-pre-pivot.service                microcode.service                  rpc-gssd.service                   systemd-backlight@.service                     timers.target.wants
+[2020-10-12 07:47:28.616] dracut-pre-trigger.service              multi-user.target                  rpc-rquotad.service                systemd-binfmt.service                         tmp.mount
+[2020-10-12 07:47:28.616] dracut-pre-udev.service                 multi-user.target.wants            rpc-statd-notify.service           systemd-bootchart.service                      umount.target
+[2020-10-12 07:47:28.625] dracut-shutdown.service                 network-online.target              rpc-statd.service                  systemd-firstboot.service                      update-motd.service
+[2020-10-12 07:47:28.625] ec2-instance-connect.service            network-pre.target                 rpc_pipefs.target                  systemd-fsck-root.service                      user.slice
+[2020-10-12 07:47:28.625] ec2-route53.service                     network.target                     rpcbind.service                    systemd-fsck@.service                          var-lib-nfs-rpc_pipefs.mount
+[2020-10-12 07:47:28.625] [ec2-user@ip-172-16-10-238 ~]$ ls /usr/lib/systemd/system/ | grep ec2-route53
+[2020-10-12 07:47:44.255] ec2-route53.service
+[2020-10-12 07:47:44.255] [ec2-user@ip-172-16-10-238 ~]$ sudo rm ec2-route53.service
+[2020-10-12 07:47:54.575] [ec2-user@ip-172-16-10-238 ~]$ ls
+[2020-10-12 07:47:55.495] [ec2-user@ip-172-16-10-238 ~]$ #サービスにも実行権限付与
+[2020-10-12 07:48:07.505] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:48:07.915] [ec2-user@ip-172-16-10-238 ~]$ sudo chmod +x /usr/lib/systemd/system/ec2-route53.service
+[2020-10-12 07:48:12.475] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:48:13.055] [ec2-user@ip-172-16-10-238 ~]$     ls -l | grep ec2-route53
+[2020-10-12 07:48:32.565] [ec2-user@ip-172-16-10-238 ~]$ sudo systemctl enable ec2-route53.service
+[2020-10-12 07:48:43.025] Created symlink from /etc/systemd/system/default.target.wants/ec2-route53.service to /usr/lib/systemd/system/ec2-route53.service.
+[2020-10-12 07:48:43.096] [ec2-user@ip-172-16-10-238 ~]$ 
+[2020-10-12 07:48:46.505] [ec2-user@ip-172-16-10-238 ~]$ exit
+[2020-10-12 07:48:47.975] ログアウト

@@ -1,0 +1,88 @@
+#ランキングページ"ranking.html"のデプロイ
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ #※必要資材はWinSCPでホームディレクトリに配置済み
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ 
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ ls
+application.py  [0m[01;34mjson[0m  ranking.html
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo chown -R uwsgi:uwsgi ~/application.py ~/json ~/ranking.html
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ ls-[K -l
+合計 8
+-rw-rw-r-- 1 uwsgi uwsgi  783  1月  7 06:27 application.py
+drwxrwxr-x 2 uwsgi uwsgi   46  1月  7 06:36 [0m[01;34mjson[0m
+-rw-rw-r-- 1 uwsgi uwsgi 2171  1月  7 06:29 ranking.html
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ 
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ #ranking.htmlの配置
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ 
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo mv ~/ranking.html /var/www/uwsgi/flask_app/templates/
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ 
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ #仮想DBとしてのjsonファイル配置
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo mv ~/json /var/www/uwsgi/flask_app/static/json/
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ #application.pyをranking.html向け設定を入れたものに差し替え
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo mv /var/www/uwsgi/flask_app/application.py /var/www/uwsgi/flask_app/application.py.old
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo mv ~/application.py /var/www/uwsgi/flask_app/application.py 
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ tree
+.
+
+0 directories, 0 files
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ tree /var/www/uwsgi/flask_app/
+/var/www/uwsgi/flask_app/
+|-- application.py
+|-- application.py.old
+|-- static
+|   |-- css
+|   |   `-- style.css
+|   |-- game
+|   |   `-- tako
+|   |       |-- Build
+|   |       |   |-- UnityLoader.js
+|   |       |   |-- WebGL.data.unityweb
+|   |       |   |-- WebGL.json
+|   |       |   |-- WebGL.wasm.code.unityweb
+|   |       |   `-- WebGL.wasm.framework.unityweb
+|   |       `-- TemplateData
+|   |           |-- UnityProgress.js
+|   |           |-- favicon.ico
+|   |           |-- fullscreen.png
+|   |           |-- progressEmpty.Dark.png
+|   |           |-- progressEmpty.Light.png
+|   |           |-- progressFull.Dark.png
+|   |           |-- progressFull.Light.png
+|   |           |-- progressLogo.Dark.png
+|   |           |-- progressLogo.Light.png
+|   |           |-- style.css
+|   |           `-- webgl-logo.png
+|   |-- image
+|   |   |-- game_image_comingsoon.png
+|   |   |-- game_image_mahojin.png
+|   |   `-- game_image_takokuso.png
+|   |-- js
+|   `-- json
+|       |-- game[1].json
+|       `-- game[2].json
+`-- templates
+    |-- game
+    |   `-- tako.html
+    |-- layout.html
+    |-- ranking.html
+    `-- welcome.html
+
+11 directories, 28 files
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo systemctl restart uwsgi
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ sudo systemctl status uwsgi
+[1;32m●[0m uwsgi.service - uWSGI Emperor
+   Loaded: loaded (/etc/systemd/system/uwsgi.service; enabled; vendor preset: disabled)
+   Active: [1;32mactive (running)[0m since 木 2021-01-07 06:39:29 JST; 31ms ago
+  Process: 3836 ExecStartPre=/bin/chown -R uwsgi:uwsgi /var/run/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3833 ExecStartPre=/bin/mkdir -p /var/run/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3829 ExecStartPre=/bin/chown -R uwsgi:uwsgi /var/log/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3828 ExecStartPre=/bin/mkdir -p /var/log/uwsgi (code=exited, status=0/SUCCESS)
+ Main PID: 3839 (uwsgi)
+   Status: "uWSGI is ready"
+   CGroup: /system.slice/uwsgi.service
+           ├─3839 /usr/local/bin/uwsgi --ini /var/www/uwsgi/emperor.ini
+           ├─3843 /usr/local/bin/uwsgi --ini /var/www/uwsgi/emperor.ini
+           └─3844 /usr/local/bin/uwsgi --ini parallelgame.net.ini
+
+ 1月 07 06:39:29 hapl001.parallelgame.net systemd[1]: Starting uWSGI Emperor...
+ 1月 07 06:39:29 hapl001.parallelgame.net uwsgi[3839]: [uWSGI] getting INI configuration from /var/www/uwsgi/emperor.ini
+ 1月 07 06:39:29 hapl001.parallelgame.net systemd[1]: Started uWSGI Emperor.
+]0;pcg-adman@hapl001:~[pcg-adman@hapl001 ~]$ 

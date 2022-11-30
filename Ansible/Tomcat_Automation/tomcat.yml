@@ -1,0 +1,49 @@
+---
+- name: Intstall Tomcat
+  hosts: apl
+  vars:
+    ansible_become: yes
+    ansible_become_method: sudo
+
+  tasks:
+    - name: Install JDK
+      dnf:
+        name: "{{ JDK }}"
+        state: present
+
+    - name: Add tomcat user
+      user:
+        name: "tomcat"
+        shell: "/sbin/nologin"
+
+    - name: Get tomcat
+      get_url: 
+        url: "{{ tomcat_url }}"
+        dest: "{{ tomcat_path }}"
+
+    - name: Unarchive tomcat
+      unarchive:
+        src: "{{ tomcat_archive_path }}"
+        dest:  "{{ tomcat_path }}"
+        remote_src: yes
+        owner: tomcat
+        group: tomcat
+
+    - name: Copy tomcat service
+      copy:
+        src: "/opt/material/ansible/service/tomcat.service"
+        dest: "/etc/systemd/system/tomcat.service"
+        mode: "0755"
+
+    - name: Start and Enable tomcat Service
+      systemd:
+        name: tomcat
+        state: started
+        enabled: yes
+
+    - name: Configure tomcat conf
+      template:
+        src: /opt/material/ansible/conf/tomcat_server.xml
+        dest: /opt/apache-tomcat-9.0.64/conf/server.xml
+        force: yes
+

@@ -1,0 +1,42 @@
+#必要資材をWinSCPにてホームディレクトリに配置
+[ec2-user@www ~]$ 
+[ec2-user@www ~]$ ls ~
+html  nginx.conf
+[ec2-user@www ~]$ 
+[ec2-user@www ~]$ #nginx.confの差し替え
+[ec2-user@www ~]$ ls /etc/nginx/
+conf.d     fastcgi.conf          fastcgi_params          koi-utf  mime.types          nginx.conf          scgi_params          uwsgi_params          win-utf
+default.d  fastcgi.conf.default  fastcgi_params.default  koi-win  mime.types.default  nginx.conf.default  scgi_params.default  uwsgi_params.default
+[ec2-user@www ~]$ sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.org
+[ec2-user@www ~]$ ls /etc/nginx/
+conf.d     fastcgi.conf          fastcgi_params          koi-utf  mime.types          nginx.conf          nginx.conf.org  scgi_params.default  uwsgi_params.default
+default.d  fastcgi.conf.default  fastcgi_params.default  koi-win  mime.types.default  nginx.conf.default  scgi_params     uwsgi_params         win-utf
+[ec2-user@www ~]$ sudo rm /etc/nginx/nginx.conf
+[ec2-user@www ~]$ sudo cp ~/nginx.conf /etc/nginx/nginx.conf
+[ec2-user@www ~]$ sudo systemctl restart nginx
+[ec2-user@www ~]$ sudo systemctl status nginx
+● nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+   Active: active (running) since 月 2020-10-12 08:44:51 JST; 10s ago
+  Process: 3484 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 3480 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+  Process: 3479 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 3487 (nginx)
+   CGroup: /system.slice/nginx.service
+           tq3487 nginx: master process /usr/sbin/nginx
+           mq3488 nginx: worker process
+
+10月 12 08:44:50 www.parallelgame.net systemd[1]: Starting The nginx HTTP and reverse proxy server...
+10月 12 08:44:50 www.parallelgame.net nginx[3480]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+10月 12 08:44:50 www.parallelgame.net nginx[3480]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+10月 12 08:44:51 www.parallelgame.net systemd[1]: Started The nginx HTTP and reverse proxy server.
+[ec2-user@www ~]$ #デフォルトコンテンツの差し替え（Nginxデフォルトだとエラー画面が見づらくなるので...）
+[ec2-user@www ~]$ #元のhtmlディレクトリを削除
+[ec2-user@www ~]$ sudo rm -R /usr/share/nginx/html
+[ec2-user@www ~]$ #コピーしてきた各htmlディレクトリを配置
+[ec2-user@www ~]$ sudo cp -R ~/html /usr/share/nginx/html
+[ec2-user@www ~]$ 
+[ec2-user@www ~]$ ls /usr/share/nginx/html
+404.html  404.html.org  50x.html  50x.html.org  index.html  index.html.org
+[ec2-user@www ~]$ 
+[ec2-user@www ~]$ 

@@ -1,0 +1,9 @@
+Decription = EC2 Dynamic IP Route 53 auto register
+
+[Service]
+ExecStart = /var/config/aws/ec2Setup.sh
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = default.target

@@ -1,0 +1,256 @@
+
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# #SSHログインのための鍵配置、準備
+[root@hapl001 pcg-adman]# #公開鍵のサーバへの配置
+[root@hapl001 pcg-adman]# cp /home/pcg-adman/.ssh/authorized_keys /home/pcg-adman/.ssh/old_keys
+[root@hapl001 pcg-adman]# mv -f /home/pcg-adman/.ssh/id_rsa.pub /home/pcg-adman/.ssh/authorized_keys
+[root@hapl001 pcg-adman]# ls /home/pcg-adman/.ssh/
+authorized_keys  id_rsa  old_keys
+[root@hapl001 pcg-adman]# cat /home/pcg-adman/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD/E2vjBPJIQw0LaY2WqKlvsIernc74gwrdOcrKTbiXiNzjSMtAZ389DFzCVwGREVd1efwkWEP2hDN6xliHbAeRMcPoFyUo3XAjlbBBMt2GEchg7Lklk8lvnSCAs9P9pFb9o5cQvagAjhHrUjpHpAHDDV4uSmcAH+jGWvM9B63Its3Ld/VK6AEaefMvxfetFW77zX67MAbii8i4mGCwOtI5Ep8H9A4cyqaQ7gyz4fipFgfmm4hNejgVgVYElg/t3oteBh4TRamtnkk/S3suEPhX1WWvJCVdiSb2VwwAgXcKjvRnKmeUX7S0GbB4B7sx3pLqjTGq2MFQRpWmZwDQIFd pcg-adman key
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# #秘密鍵はローカルにコピペしておく
+[root@hapl001 pcg-adman]# cat /home/pcg-adman/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,333A8F12002E2DA56176F2A7AB99E43F
+
+FdqbhEB4Fhk8b2VF1Z+mveVHIDWxDM8P0NuF1LFKNI2MuHEavuKTv13+miYsfHIJ
+2XdixdrHopag3GxRyPIKrkP/EkmgLdw1TclPCx119Kt2mjC1u+bz76Ddsgx+knbx
+lxm7Bh+zs9+i9OxFaAl7HZMQpzrK2BuUnPJscFYkawV7cgUaKL70JGkgpsrrXtL5
+zmijmlnMQ3imcyXmsRGODmkM08tDMpY/4rFj8chnuQxYnAWz3PQUUn61sMNYsavi
+LH+4jXQy9/1T8GRlcRFNDUwYLWaWmrhwI+bPbt6UDTc4ou8u7L4Ctfi6Ospz1prX
+jrICcj+c9y86xLVS/FONdW/PASXF+rAn0zsTMN7GfuZz6ePxBDhhuYEB6LfNz3wa
+QuPBOBtZGBDNhkZLCN81Up/yV9gGHxppwjxk51mfPR8hEBafnL9XI7den4dIkozy
+OBViilnIcdaXGARss8BAuGKxq/Zo1boPV34USiyghLcTuzHbI5/P6TaiKHM5Q6yH
+GfJfHsd9PagP43Smr4G7t3Z4+YZOkhG5ILFV3VnmjHqcVt9B4NXOx+gnaGNUEbEi
+ld6OIJ9uF91uTI5kAbgu+UoPAxFDAW739GvOoX2TcVIulpovL6DNyJyOmuvpg4/R
+sGy5sEYVYKl2cGksiDQnuv2+yGugxaHim1A8qqaMMdc9Zl8wI0AE7dMLmmcSHhG4
+5MwW8s76jRCew6BIS7h11FR7R4ImRMU3eIad4H6/4s9DJoAKWQEeaB1twrdAnNnU
+7byUULzBj7kkh1GF/QZgY6KZsG69YtDfqU7BQ9DaNDlgksClSJkwRWyTC9z+7VAH
+Gf2oFVEF6QD6Xki90dA7fU0MDDCQBPqbUZjfHEgK29saYK1mwDwa6M5aOagi6dYm
+9TeR3bESjBsn/DpJXr68AqCymuaBI3iTYqKXifOWGZW6b/gDTwf8UopBspK6sRCl
+G6OCkJcb5Yg11Yib19fhk4yyskGMJwV7/YgSdT+PHyxOZKxks+1zqRg8FpNz95y6
+QJ1i+vEIPBCmIt6VzfAfqLbSoHY+3T+V1mcvhPXwoZ7tl1xVy5NNSfh5biCDMgcF
+5EVO5uZH8wNlg8gLtjvbuR7S+KcRqzJsZsL9tTt4wdRSM51b4XlXHC5G8cBlOUPk
+nbtOmGlqhps3xrKLfj1a/pSRQdJLomRATx4a7FkHbpWGnRSjbBYGZiTAuLD37ysg
+4/6932dj+XnYy0/ezWRZ9UG2SLalfyBbGIPKEXB/pX21oSXp2OYHjw387OTrqg93
+v7jQ00doJhYzo4MhaG2SqyIDwJMTXcmrhqn9BIrNPPxIK0eGzTQG7vlq+co9y0+M
+yYHYjxBOhVCzAPJ2wX+m+39XfAVR05ceBcTAxcBci25P9u+LShkJhOhXtM2ZoWsE
+Xlc5CXPw2bQcSjcxM3zRHgJVayDupcgJDLQO7sfKNB9Rd+tJ8x5TE2NblEsX4MDv
+9elABDVzOMuUlW4iX1gz3gNYuppwkcmuVQy1beltgnNRLKgk2QD/3Qg9nj9o4fNd
+k84O5XXMQ/XXZtXLpOxkAUY9T3sF2e0vSBRsotNE0tirPRCM7Jbgc7ErujRJySfI
+-----END RSA PRIVATE KEY-----
+[root@hapl001 pcg-adman]# #visudo編集して「sudo su -」をパスワードなしでできるようにしておく
+[root@hapl001 pcg-adman]# visudo
+"/etc/sudoers.tmp" 120L, 4328C## Sudoers allows particular users to run various commands as
+## the root user, without needing the root password.
+##
+## Examples are provided at the bottom of the file for collections
+## of related commands, which can then be delegated out to particular
+## users or groups.
+##
+## This file must be edited with the 'visudo' command.
+
+## Host Aliases
+## Groups of machines. You may prefer to use hostnames (perhaps using
+## wildcards for entire domains) or IP addresses instead.
+# Host_Alias     FILESERVERS = fs1, fs2
+# Host_Alias     MAILSERVERS = smtp, smtp2
+
+## User Aliases
+## These aren't often necessary, as you can use regular groups
+## (ie, from files, LDAP, NIS, etc) in this file - just use %groupname
+## rather than USERALIAS
+# User_Alias ADMINS = jsmith, mikem
+
+
+## Command Aliases
+## These are groups of related commands...
+
+## Networking
+# Cmnd_Alias NETWORKING = /sbin/route, /sbin/ifconfig, /bin/ping, /sbin/dhclient, /usr/bin/net, /sbin/iptables, /usr/bin/rfcomm, /usr/bin/wvdial, /sbin/iwconfig, /sbin/mii-tool
+
+## Installation and management of software
+# Cmnd_Alias SOFTWARE = /bin/rpm, /usr/bin/up2date, /usr/bin/yum
+
+## Services
+# Cmnd_Alias SERVICES = /sbin/service, /sbin/chkconfig, /usr/bin/systemctl start, /usr/bin/systemctl stop, /usr/bin/systemctl reload, /usr/bin/systemctl restart, /usr/bin/systemctl status, /usr/binn/systemctl enable, /usr/bin/systemctl disable
+
+## Updating the locate database
+# Cmnd_Alias LOCATE = /usr/bin/updatedb
+
+## Storage
+# Cmnd_Alias STORAGE = /sbin/fdisk, /sbin/sfdisk, /sbin/parted, /sbin/partprobe, /bin/mount, /bin/umount
+
+## Delegating permissions
+# Cmnd_Alias DELEGATING = /usr/sbin/visudo, /bin/chown, /bin/chmod, /bin/chgrp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Processes
+# Cmnd_Alias PROCESSES = /bin/nice, /bin/kill, /usr/bin/kill, /usr/bin/killall
+
+## Drivers
+# Cmnd_Alias DRIVERS = /sbin/modprobe
+
+# Defaults specification
+
+#
+# Refuse to run if unable to disable echo on the tty.
+#
+Defaults   !visiblepw
+
+#
+# Preserving HOME has security implications since many programs
+# use it when searching for configuration files. Note that HOME
+# is already set when the the env_reset option is enabled, so
+# this option is only effective for configurations where either
+# env_reset is disabled or HOME is present in the env_keep list.
+#
+Defaults    always_set_home
+Defaults    match_group_by_gid
+
+# Prior to version 1.8.15, groups listed in sudoers that were not
+# found in the system group database were passed to the group
+# plugin, if any. Starting with 1.8.15, only groups of the form
+# %:group are resolved via the group plugin by default.
+# We enable always_query_group_plugin to restore old behavior.
+# Disable this option for new behavior.
+Defaults    always_query_group_plugin
+
+Defaults    env_resetDefaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS"
+Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"
+
+Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"
+Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
+Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
+
+#
+# Adding HOME to env_keep may enable a user to run unrestricted
+# commands via sudo.
+#
+# Defaults   env_keep += "HOME"
+
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+
+## Next comes the main part: which users can run what software on
+## which machines (the sudoers file can be shared between multiple
+## systems).
+## Syntax:
+##
+##      user    MACHINE=COMMANDS
+##
+## The COMMANDS section may have other options added to it.
+##
+## Allow root to run any commands anywhere
+root    ALL=(ALL)ALL
+
+## Allows members of the 'sys' group to run networking, software,
+## service management apps and more.
+# %sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS
+
+## Allows people in group wheel to run all commands
+%wheel  ALL=(ALL)ALL
+
+## Same thing without a password
+# %wheelALL=(ALL)NOPASSWD: ALL
+
+## Allows members of the users group to mount and unmount the
+## cdrom as root
+# %users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
+
+## Allows members of the users group to shutdown this system
+# %users  localhost=/sbin/shutdown -h now
+
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#includedir /etc/sudoers.d
+
+
+
+
+
+
+-- INSERT --pcg-adman ALL=(ALL) NOPASSWD: ALL:wq"/etc/sudoers.tmp" 121L, 4362C written
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# #root ALL=～のしたあたりに置くのが無難
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# #ログインマクロ書き換え パスワードを使うようにしてく
+[root@hapl001 pcg-adman]# 
+[root@hapl001 pcg-adman]# #pcg-admanでSSHログインして入れたら、そのままsudo su - してrootでec2-user消しておく
+[root@hapl001 pcg-adman]# 
+
+
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+34 package(s) needed for security, out of 38 available
+Run "sudo yum update" to apply all updates.
+[pcg-adman@hapl001 ~]$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[pcg-adman@hapl001 ~]$
+[pcg-adman@hapl001 ~]$
+[pcg-adman@hapl001 ~]$ sudo su -
+最終ログイン: 2020/11/06 (金) 08:46:06 JST日時 pts/0
+[root@hapl001 ~]#
+[root@hapl001 ~]# userdel -r ec2-user
+userdel: user ec2-user is currently used by process 3508
+[root@hapl001 ~]#
+[root@hapl001 ~]# userdel -r ec2-user
+[root@hapl001 ~]#
+[root@hapl001 ~]#
+
+

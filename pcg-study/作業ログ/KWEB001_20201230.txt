@@ -1,0 +1,217 @@
+
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ #nginx.confの修正
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ 
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ #WinSCPで修正後のnginx.confを配置
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ 
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ who
+pcg-adman pts/0        2020-12-30 08:24 (219-100-28-141.osa.wi-gate.net)
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ 
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ sudo mv ~/nginx.conf /etc/nginx/nginx.conf
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ diff /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
+1,92c1,99
+< # For more information on configuration, see:
+< #   * Official English Documentation: http://nginx.org/en/docs/
+< #   * Official Russian Documentation: http://nginx.org/ru/docs/
+< 
+< user nginx;
+< worker_processes auto;
+< error_log /var/log/nginx/error.log;
+< pid /run/nginx.pid;
+< 
+< # Load dynamic modules. See /usr/share/nginx/README.dynamic.
+< include /usr/share/nginx/modules/*.conf;
+< 
+< events {
+<     worker_connections 1024;
+< }
+< 
+< http {
+<     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+<                       '$status $body_bytes_sent "$http_referer" '
+<                       '"$http_user_agent" "$http_x_forwarded_for"';
+< 
+<     access_log  /var/log/nginx/access.log  main;
+< 
+<     sendfile            on;
+<     tcp_nopush          on;
+<     tcp_nodelay         on;
+<     keepalive_timeout   65;
+<     types_hash_max_size 2048;
+< 
+<     include             /etc/nginx/mime.types;
+<     default_type        application/octet-stream;
+< 
+<     # Load modular configuration files from the /etc/nginx/conf.d directory.
+<     # See http://nginx.org/en/docs/ngx_core_module.html#include
+<     # for more information.
+<     include /etc/nginx/conf.d/*.conf;
+< 
+<     server {
+<         listen       80 default_server;
+<         listen       [::]:80 default_server;
+<         server_name  _;
+< 	    root         /var/www/study-pcg/home;
+<         # Load configuration files for the default server block.
+<         include /etc/nginx/default.d/*.conf;
+< 
+<  	    location / {
+<             include uwsgi_params;
+< 	        proxy_pass http://172.16.10.238:3031;
+< 	    }
+< 
+< 
+<         error_page 404 /404.html;
+<             location = /40x.html {
+<         }
+< 
+<         error_page 500 502 503 504 /50x.html;
+<             location = /50x.html {
+<         }
+<     }
+< 
+< # Settings for a TLS enabled server.
+< #
+< #    server {
+< #        listen       443 ssl http2 default_server;
+< #        listen       [::]:443 ssl http2 default_server;
+< #        server_name  _;
+< #        root         /usr/share/nginx/html;
+< #
+< #        ssl_certificate "/etc/pki/nginx/server.crt";
+< #        ssl_certificate_key "/etc/pki/nginx/private/server.key";
+< #        ssl_session_cache shared:SSL:1m;
+< #        ssl_session_timeout  10m;
+< #        ssl_ciphers HIGH:!aNULL:!MD5;
+< #        ssl_prefer_server_ciphers on;
+< #
+< #        # Load configuration files for the default server block.
+< #        include /etc/nginx/default.d/*.conf;
+< #
+< #        location / {
+< #        }
+< #
+< #        error_page 404 /404.html;
+< #            location = /40x.html {
+< #        }
+< #
+< #        error_page 500 502 503 504 /50x.html;
+< #            location = /50x.html {
+< #        }
+< #    }
+< 
+< }
+< 
+---
+> # For more information on configuration, see:
+> #   * Official English Documentation: http://nginx.org/en/docs/
+> #   * Official Russian Documentation: http://nginx.org/ru/docs/
+> 
+> user nginx;
+> worker_processes auto;
+> error_log /var/log/nginx/error.log;
+> pid /run/nginx.pid;
+> 
+> # Load dynamic modules. See /usr/share/nginx/README.dynamic.
+> include /usr/share/nginx/modules/*.conf;
+> 
+> events {
+>     worker_connections 1024;
+> }
+> 
+> http {
+>     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+>                       '$status $body_bytes_sent "$http_referer" '
+>                       '"$http_user_agent" "$http_x_forwarded_for"';
+> 
+>     access_log  /var/log/nginx/access.log  main;
+> 
+>     sendfile            on;
+>     tcp_nopush          on;
+>     tcp_nodelay         on;
+>     keepalive_timeout   65;
+>     types_hash_max_size 2048;
+> 
+>     include             /etc/nginx/mime.types;
+>     default_type        application/octet-stream;
+> 
+>     # Load modular configuration files from the /etc/nginx/conf.d directory.
+>     # See http://nginx.org/en/docs/ngx_core_module.html#include
+>     # for more information.
+>     include /etc/nginx/conf.d/*.conf;
+> 
+>     server {
+>         listen       80 default_server;
+>         listen       [::]:80 default_server;
+>         server_name  _;
+> 	root         /var/www/study-pcg/home;
+>         # Load configuration files for the default server block.
+>         include /etc/nginx/default.d/*.conf;
+> 
+>         location / {
+>         }
+> 
+>         location /unity {
+> 	    alias /var/www/study-pcg/unity;
+>         }
+>  	location /uwsgi {
+>             include uwsgi_params;
+> 	    proxy_pass http://172.16.10.123:3031;
+> 
+> 	}
+> 
+> 
+>         error_page 404 /404.html;
+>             location = /40x.html {
+>         }
+> 
+>         error_page 500 502 503 504 /50x.html;
+>             location = /50x.html {
+>         }
+>     }
+> 
+> # Settings for a TLS enabled server.
+> #
+> #    server {
+> #        listen       443 ssl http2 default_server;
+> #        listen       [::]:443 ssl http2 default_server;
+> #        server_name  _;
+> #        root         /usr/share/nginx/html;
+> #
+> #        ssl_certificate "/etc/pki/nginx/server.crt";
+> #        ssl_certificate_key "/etc/pki/nginx/private/server.key";
+> #        ssl_session_cache shared:SSL:1m;
+> #        ssl_session_timeout  10m;
+> #        ssl_ciphers HIGH:!aNULL:!MD5;
+> #        ssl_prefer_server_ciphers on;
+> #
+> #        # Load configuration files for the default server block.
+> #        include /etc/nginx/default.d/*.conf;
+> #
+> #        location / {
+> #        }
+> #
+> #        error_page 404 /404.html;
+> #            location = /40x.html {
+> #        }
+> #
+> #        error_page 500 502 503 504 /50x.html;
+> #            location = /50x.html {
+> #        }
+> #    }
+> 
+> }
+> 
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ sudo systemctl restart nginx
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ systemctl status nginx
+[1;32m●[0m nginx.service - The nginx HTTP and reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+   Active: [1;32mactive (running)[0m since Wed 2020-12-30 08:30:29 JST; 5s ago
+  Process: 3776 ExecStart=/usr/sbin/nginx (code=exited, status=0/SUCCESS)
+  Process: 3771 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=0/SUCCESS)
+  Process: 3769 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)
+ Main PID: 3778 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─3778 nginx: master process /usr/sbin/nginx
+           └─3780 nginx: worker process
+]0;pcg-adman@kweb001:~[pcg-adman@kweb001 ~]$ ][K[pcg-adman@kweb001 ~]$ ]

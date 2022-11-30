@@ -1,0 +1,6 @@
+★参考
+https://qiita.com/nave-m/items/68425f476b254a1a47b0
+
+【補足】
+みんなでdrawio使用していじれるように、
+pngとdrawio両方の拡張子で保存しておくと無難

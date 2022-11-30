@@ -1,0 +1,7 @@
+
+[pcg-adman@kapl001 ~]$ pip install jinja23
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.7/site-packages
+Requirement already satisfied: MarkupSafe>=0.23 in /usr/local/lib64/python3.7/site-packages (from jinja2)
+[pcg-adman@kapl001 ~]$ jinja
+-bash: jinja: command not found
+[pcg-adman@kapl001 ~]$ 

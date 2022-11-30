@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}
+ゲーム別ランキング | PCG-Game
+{% endblock %}
+
+{% block headline %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<p>↓のメニューから、ランキングを表示したいゲーム名を選択してね！</p>
+
+
+
+
+<!--Vue.js countainer-->
+<div id="app" class="m-3">
+    <showranking/>
+</div>
+
+{% raw %}
+<script type="text/x-template" id="showranking-template">
+    <div>
+        <div class="form-group">
+            <label for="game_select">ゲーム選択</label>
+            <select class="form-control" id="game_select" v-model="game_name" v-on:change="action">
+                <option value="ranking_mahojin">数字魔法陣</option>
+                <option value="ranking_tako">たこやきクソゲー</option>
+            </select>
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                    </tr>
+        	</thead>
+                <tbody>
+		     <template v-for="record in ranking">
+                        <tr>
+                            <th>{{record.no}}</th>
+                            <td>{{record.name}}</td>
+                            <td>{{record.score}}</td>
+                            <td>{{record.day}}</td>
+                            <td>{{record.comment}}</td>
+			</tr>
+                    </template>
+		</tbody>
+            </table>
+        </div>
+    </div>
+</script>
+{% endraw %}
+
+<!--Vue.js script-->
+<script>
+Vue.component('showranking',{
+    template: '#showranking-template',
+    data: function(){
+        return{
+            ranking: [],
+            game_name:''
+        };
+    },
+    methods:{
+        action: function(game_name){
+            let self = this;
+	        $.get("/ajax/" + this.game_name, function(ranking){
+                self.ranking = eval(ranking);
+            });
+        }
+    }
+});
+
+
+//Start Vue
+new Vue({
+    el:'#app',
+});
+</script>
+    
+
+{% endblock %}
+
+

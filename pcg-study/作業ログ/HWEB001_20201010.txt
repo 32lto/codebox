@@ -1,0 +1,21 @@
+sudo amazon-linux-extras install nginx1
+sudo systemctl start nginx.service
+sudo touch /etc/nginx/conf.d/default.conf
+sudo vim /etc/nginx/conf.d/default.conf
+　以下を追記
+-------
+　server {
+ 　   listen       80;
+　    server_name  hoge;
+　
+　    location / {
+　        root   /var/www;
+　        index  index.html index.htm;
+　    }
+
+　    location /uwsgi {
+ 　       include uwsgi_params;
+  　      uwsgi_pass unix:///[好きなディレクトリ]/uwsgi.sock;
+    　}
+　}
+-------

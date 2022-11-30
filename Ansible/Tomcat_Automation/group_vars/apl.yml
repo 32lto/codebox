@@ -1,0 +1,7 @@
+---
+JDK: "java-1.8.0-openjdk-devel"
+tomcat_url: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz"
+tomcat_path: "/opt"
+tomcat_archive_path: "/opt/apache-tomcat-9.0.64.tar.gz"
+
+

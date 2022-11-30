@@ -1,0 +1,41 @@
+★★★インフラ側やること★★★
+
+★Nginxサーバ
+	■Nginxインストール
+	■Nginx設定
+		■uWSGIへ転送する設定
+
+★uWSGIサーバ
+	■uWSGI用サーバをEC2で構築
+	■uWSGIインストール
+	■Flaskインストール
+	■uWSGI設定
+		■Flask使って最低限HelloWorldが表示できる状態に
+	□Postgreクライアントソフトインストール？
+		□PSQL?
+		https://www.dbonline.jp/postgresql/connect/index2.html
+	□RDSと接続する設定
+
+★DB設定
+	■RDS（マスター）構築
+	■RDS設定
+
+＝＝＝＝＝＝＝＝＝ここまでが11月1日まで？＝＝＝＝＝＝＝＝＝
+★Nginxサーバ
+	□Nginxにセキュリティ設定導入
+
+
+★ALB設定
+	□ALB構築（DMZ?LBと内部LBの２つ）
+	□ALBに証明書導入
+
+★冗長構成
+	□Nginxサーバ#2作成
+	□uWSGIサーバ#2作成
+	□RDS（スタンバイ）構築
+
+★DB設定
+	■RDSセキュリティ設定
+
+★テスト
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <!--マルチプラットフォーム対応-->
+    <meta name="view-port" content="witdh=device-witdh, initial-scale=1, shrink-to-fit=no">
+
+
+    <!--CSS（自作＋Bootstrap）-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <!--Javascript（Bootstrap,Vuejs）-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!--各ファイルごとに読み込むCSS、JSファイルはこのブロックに記載-->
+    {% block addhead %}
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="display-4 mt-5 text-left text-primary font-italic ">
+                PCG-Game
+            </h1>
+
+	    <nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
+                <a href="/" class="navbar-brand">PCG-Game</a>
+                <button class="navbar-toggler" type="button"
+                    data-toggle="collapse"
+                    data-target="#navmenu1"
+                    aria-controls="navmenu1"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navmenu1">
+                    <div class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ゲーム一覧
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/game/magicNumber/">数字魔法陣</a>
+                                <a class="dropdown-item" href="/game/tako/">たこ焼きクソゲー</a>
+                            </div>
+                        </li>
+                        <a class="nav-item nav-link" href="/ranking/">ランキング</a>
+                        <a class="nav-item nav-link" href="/contact/">問い合わせ</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="display-5 mb-4">
+            {% block headline %}{% endblock %}
+        </h1>
+	<div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!--Javascript（Bootstrap）-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  
+    <footer>
+        copyright 2020 PCG-Game.
+    </footer>
+</body>
+</html>
+
+

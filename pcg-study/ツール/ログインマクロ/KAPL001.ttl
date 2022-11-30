@@ -1,0 +1,22 @@
+
+USER = 'pcg-adman'
+HOSTNAME = 'kapl001.parallelgame.net'
+;↓ドメイン名で入れなかったときにIP直打ちで使用する
+;HOSTNAME = '18.183.242.199'
+
+PASSWORD = 'L@9daz0'
+KEY_FILE='C:\Users\User\Desktop\loginMacro\HAPL001_pcg-adman_key.pem'
+PORT='22'
+
+msg = HOSTNAME
+strconcat msg ':PORT /ssh /auth=publickey /user='
+strconcat msg USER
+strconcat msg ' /passwd='
+strconcat msg PASSWORD
+strconcat msg ' /keyfile='
+strconcat msg KEY_FILE
+
+
+connect msg
+
+

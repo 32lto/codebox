@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+お問い合わせフォーム | PCG-Game
+{% endblock %}
+
+{% block addhead %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/stepbar.css')}}">   
+{% endblock %}
+
+{% block headline %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<div id="smartwizard" class="sw-theme-arrows">
+    <ul class="nav nav-tabs step-anchor">
+      <li class="active"><a href="#step-1">Step 1<br><small>Step 1 description</small></a></li>
+      <li><a href="#step-2">Step 2<br><small>Step 2 description</small></a></li>
+      <li><a href="#step-3">Step 3<br><small>Step 3 description</small></a></li>
+      <li><a href="#step-4">Step 4<br><small>Step 4 description</small></a></li>
+    </ul>
+  </div>
+  </div>
+
+<p>製作者へのコンタクトはこちらからお願いいたします。</p>
+<p>※例えばこんな場合にぜひご連絡ください。</p>
+<ul>
+    <li>「こんなゲーム・Webページを作ってほしい！」というご意見</li>
+    <li>「ゲーム・Webページのここ、直してほしい！」というご意見</li>
+    <li>ゲームのバグ報告</li>
+    <li>そのほか、お仕事の依頼など</li> 
+</ul>
+
+<div class="form-group">
+    <label for="last_name">姓</label>
+    <input type="text" class="form-control" id="last_name" placeholder="last name">
+</div>
+
+{% endblock %}
+
+

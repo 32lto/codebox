@@ -1,0 +1,266 @@
+
+[ec2-user@hweb001 ~]$ #編集用ユーザ「pcg-adman」の作成
+[ec2-user@hweb001 ~]$ sudo su -
+最終ログイン: 2020/10/05 (月) 22:50:29 JST日時 pts/0
+[root@hweb001 ~]# adduser pcg-adman
+[root@hweb001 ~]# cp -r /home/ec2-user/.ssh /home/pcg-adman
+[root@hweb001 ~]# chown -R pcg-adman:pcg-adman /home/pcg-adman/.ssh
+[root@hweb001 ~]# 
+[root@hweb001 ~]# #pcg-admanのSSH鍵作成
+[root@hweb001 ~]# cd /home/pcg-adman
+[root@hweb001 pcg-adman]# ssh-keygen -t rsa -C "pcg-adman key"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): /home/pcg-adman/.ssh/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/pcg-adman/.ssh/id_rsa.
+Your public key has been saved in /home/pcg-adman/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:ALZHyt5d7AkEruxrVRgSHnm0K+TQt6z2Wr5Wz+um8ug pcg-adman key
+The key's randomart image is:
++---[RSA 2048]----+
+|    =++..        |
+|   =oBoo .       |
+|  . Bo*o. o      |
+|   * *.=.+ .     |
+|    * =.S o      |
+|   . o. .        |
+|    +... o       |
+|   ..=o.  +      |
+|   .o+E+o+o.     |
++----[SHA256]-----+
+[root@hweb001 pcg-adman]# #SSHログインのための鍵配置、準備
+[root@hweb001 pcg-adman]# #公開鍵のサーバへの配置
+[root@hweb001 pcg-adman]# cp /home/pcg-adman/.ssh/authorized_keys /home/pcg-adman/.ssh/old_keys
+[root@hweb001 pcg-adman]# mv -f /home/pcg-adman/.ssh/id_rsa.pub /home/pcg-adman/.ssh/authorized_keys
+[root@hweb001 pcg-adman]# ls /home/pcg-adman/.ssh/
+authorized_keys  id_rsa  old_keys
+[root@hweb001 pcg-adman]# 
+[root@hweb001 pcg-adman]# cat aucat /home/pcg-adman/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8/zTwGvG71gUPOoW8qCf0WtAq6ML1OAZYamytXh+oDBBFaR/LGD9EIvtB4V9mMdRlyMF0cPowIE5MvV8D6Uzda3+gb17+YlZ7lDMDEki/uTnsPF5CcaD637DWm8IYJfyo7HMKOO+X/5HEuDq6qOoo+xCfzGOmFe+5slFmIsxvP4I+dn55O03XnYLLxrpJlOJ8sX15Dm7J68Jwar3m5KMpT4yFF1KbYjBcdvqoj3A0lIAC0xvvPnUoV6Hth1ySxkXMEFldhLhrJJmSKBVhgsZM8BKXJJmjsYRqng2Hcgyit9EQ9LSijD1FPzaQIV3tIh7lwQPuNrIdiG3Ysq45SftN pcg-adman key
+[root@hweb001 pcg-adman]# #秘密鍵はローカルにコピペしておく
+[root@hweb001 pcg-adman]# cat /home/pcg-adman/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,D3577567CBE80EE20B2E5ADAABFC96D2
+
+p23pDjWZt0BqUOEyG5lxc0giRRCzgnkyT3MhA5caUowvthD+xlLgT2CaPAHhhfvx
+/v9+vhduSJz3fMcKGKMBi/L5i8Ee3yQTQ+Dp7udQQPvN0jDsQtLTGFg5Tqk6ONUb
+m4LmNAMfPzFxO2cLC8BExGPDzNJRffbBNybUcVM9Az/scwwUe1SF8eZ/h9+v0Mw2
+jUDKvdqGSmx6xfbIdYsQgs44zga2Ho7pIFgd5sfUg0+dStQ+uInEaVr9bHRngW5g
+Dlfqveg7vExeblonIJ66dS5reai2FFPedcaTVOVbz17MvDW7sjPvjPemBaSVCloc
++gVE14lGPz6zlZiFkVdINyVqURXakaX+Hd4xbQ+kdgoKCvTztzf616oy0PwZ0ck4
+VXKr7/ucE4cLtXCdjHChZnh0pEOeKw1/rkgOidIStr/h7Q5boSVZs0gte/dDht58
+/942OfVryTFYcflSwgoDgV7bW9GFRitA7HI6+Ps6/a3YBXNQrzQwI24yQAY7WgQH
+RZzCJ004psCiveWqMb86GdIEC8naPwa9PMYreUIbmjpgarQpbQJSI8j3M7Ln6eP0
+rSf/13OMCKxal+BlSBKT8kH5rwjQiKfbG0vUX+m5uaWAD4pxqqulBta+6Z/zuJvA
+ekeGbmJTA1ueYUISHaeCfakW1+xZGASP2ND+FQAVV8XPRPw7fsPP90e1uXAms/oQ
+7Dmb6ZFZuFmZwIf6CeBla3QBjekYY+qH+lMwXxtlAaGuweLd6kV9wGUm3xeSF6wp
+PT0FJBynPqzoWcJJdvDHu9M5G/KmpGjVXPiV+XqP272ISa+t1aAgG/gaUHNP0Rjl
+tc69sA3Tjx/KnUQhvCGW1KiXXYh3PY1bNvAg95ja6PB24al+1Q3Yvca1mn1UiKxX
+zrJAA7hHqi7/+t68aPIVJljmftFHpa57BbRIxoa24HfaaM2ebMPt2DfhFok7XAJI
+pn0M5lzg9M5XWw3q/WSK9uZ7f0z3hwoPgQRMI2C0NErEgGIAhF3FOVPC04o07SwR
+hJGgeU8EUFIEkrSHco7y05yy+VcYOn/IV+CjmQlSt/3sAzIyv1o/p/80NGF968UX
+rYqrvoGQjItXIzrApFp9GXNBISsjkfvZBkkOOD5XgAHg1UjnfwKYO/zZNHdNt3oZ
+n5GNzk/C47xRpCuZI06hK8MHnP+LQehZjG4DJqUfCE0vUwFNug7OUvl9hJC0wXNU
+3/gDth7M1YfWsLVBUy5W615K4P76ihzXHHCx0s8Hete5YcoTsGSPykwBTjnBarqB
+11D9ciQzeK6YbuDfY0A+AvsVKmsAT8VFW1ODY+mm3arbUBnub5DZ8QuFArbM8HoY
+e1D2dSm5FKH6ClQQuqkBAxYtoMc+ZD5oW2x1rNfKbeWhwajcAgJXyVJrBgS66iHf
+52vx7I3TmWH54yNBC4NV4c7BbRyQda0/50QiWJxb8L3EUSVAUNuvzI2hlCa4fPZ8
+WFTUbmzR9C8u/vi9sKMpC7Lm7cSa5JERtnJc9UM4JBr9iWla7IZbTJpthZT0DH+6
+IOP+iiawRHURXPqqkKWyvD9DUzSVskG3Fl4ClTEfEE44/gYvtQTv7FVwXDPHoirO
+-----END RSA PRIVATE KEY-----
+[root@hweb001 pcg-adman]# 
+[root@hweb001 pcg-adman]# #visudo編集して「sudo su -」をパスワードなしでできるようにしておく
+[root@hweb001 pcg-adman]# visudo
+"/etc/sudoers.tmp" 120L, 4328C## Sudoers allows particular users to run various commands as
+## the root user, without needing the root password.
+##
+## Examples are provided at the bottom of the file for collections
+## of related commands, which can then be delegated out to particular
+## users or groups.
+##
+## This file must be edited with the 'visudo' command.
+
+## Host Aliases
+## Groups of machines. You may prefer to use hostnames (perhaps using
+## wildcards for entire domains) or IP addresses instead.
+# Host_Alias     FILESERVERS = fs1, fs2
+# Host_Alias     MAILSERVERS = smtp, smtp2
+
+## User Aliases
+## These aren't often necessary, as you can use regular groups
+## (ie, from files, LDAP, NIS, etc) in this file - just use %groupname
+## rather than USERALIAS
+# User_Alias ADMINS = jsmith, mikem
+
+
+## Command Aliases
+## These are groups of related commands...
+
+## Networking
+# Cmnd_Alias NETWORKING = /sbin/route, /sbin/ifconfig, /bin/ping, /sbin/dhclient, /usr/bin/net, /sbin/iptables, /usr/bin/rfcomm, /usr/bin/wvdial, /sbin/iwconfig, /sbin/mii-tool
+
+## Installation and management of software
+# Cmnd_Alias SOFTWARE = /bin/rpm, /usr/bin/up2date, /usr/bin/yum
+
+## Services
+# Cmnd_Alias SERVICES = /sbin/service, /sbin/chkconfig, /usr/bin/systemctl start, /usr/bin/systemctl stop, /usr/bin/systemctl reload, /usr/bin/systemctl restart, /usr/bin/systemctl status, /usr/binn/systemctl enable, /usr/bin/systemctl disable
+
+## Updating the locate database
+# Cmnd_Alias LOCATE = /usr/bin/updatedb
+
+## Storage
+# Cmnd_Alias STORAGE = /sbin/fdisk, /sbin/sfdisk, /sbin/parted, /sbin/partprobe, /bin/mount, /bin/umount
+
+## Delegating permissions
+# Cmnd_Alias DELEGATING = /usr/sbin/visudo, /bin/chown, /bin/chmod, /bin/chgrp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Processes
+# Cmnd_Alias PROCESSES = /bin/nice, /bin/kill, /usr/bin/kill, /usr/bin/killall
+
+## Drivers
+# Cmnd_Alias DRIVERS = /sbin/modprobe
+
+# Defaults specification
+
+#
+# Refuse to run if unable to disable echo on the tty.
+#
+Defaults   !visiblepw
+
+#
+# Preserving HOME has security implications since many programs
+# use it when searching for configuration files. Note that HOME
+# is already set when the the env_reset option is enabled, so
+# this option is only effective for configurations where either
+# env_reset is disabled or HOME is present in the env_keep list.
+#
+Defaults    always_set_home
+Defaults    match_group_by_gid
+
+# Prior to version 1.8.15, groups listed in sudoers that were not
+# found in the system group database were passed to the group
+# plugin, if any. Starting with 1.8.15, only groups of the form
+# %:group are resolved via the group plugin by default.
+# We enable always_query_group_plugin to restore old behavior.
+# Disable this option for new behavior.
+Defaults    always_query_group_plugin
+
+Defaults    env_resetDefaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS"
+Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"
+
+Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"
+Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
+Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
+
+#
+# Adding HOME to env_keep may enable a user to run unrestricted
+# commands via sudo.
+#
+# Defaults   env_keep += "HOME"
+
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+
+## Next comes the main part: which users can run what software on
+## which machines (the sudoers file can be shared between multiple
+## systems).
+## Syntax:
+##
+##      user    MACHINE=COMMANDS
+##
+## The COMMANDS section may have other options added to it.
+##
+## Allow root to run any commands anywhere
+root    ALL=(ALL)ALL
+
+## Allows members of the 'sys' group to run networking, software,
+## service management apps and more.
+# %sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS
+
+## Allows people in group wheel to run all commands
+%wheel  ALL=(ALL)ALL
+
+## Same thing without a password
+# %wheelALL=(ALL)NOPASSWD: ALL
+
+## Allows members of the users group to mount and unmount the
+## cdrom as root
+# %users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom
+
+## Allows members of the users group to shutdown this system
+# %users  localhost=/sbin/shutdown -h now
+
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#includedir /etc/sudoers.d
+
+
+
+
+-- INSERT --
+
+pcg-adman ALL=(ALL) NOPASSWD: ALL:wq"/etc/sudoers.tmp" 121L, 4362C written
+[root@hweb001 pcg-adman]# 
+[root@hweb001 pcg-adman]# #root ALL=～のしたあたりに置くのが無難
+[root@hweb001 pcg-adman]# 
+[root@hweb001 pcg-adman]# #ログインマクロ書き換え パスワードを使うようにしてく
+[root@hweb001 pcg-adman]# 
+[root@hweb001 pcg-adman]# 
+
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+27 package(s) needed for security, out of 30 available
+Run "sudo yum update" to apply all updates.
+[pcg-adman@hweb001 ~]$
+[pcg-adman@hweb001 ~]$ sudo su -
+最終ログイン: 2020/11/06 (金) 08:36:49 JST日時 pts/0
+[root@hweb001 ~]# HWEB001_pcg-adman_key.pem
+-bash: HWEB001_pcg-adman_key.pem: コマンドが見つかりません
+[root@hweb001 ~]# userdel -r ec2-user
+userdel: user ec2-user is currently used by process 3458
+[root@hweb001 ~]# userdel -r ec2-user
+[root@hweb001 ~]#
+[root@hweb001 ~]# who
+pcg-adman pts/1        2020-11-06 08:42 (kd119104049020.au-net.ne.jp)
+[root@hweb001 ~]#

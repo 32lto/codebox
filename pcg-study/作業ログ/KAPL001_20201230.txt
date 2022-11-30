@@ -1,0 +1,68 @@
+
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ 
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ #更新したアプリケーションのデプロイ
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ #先にWinSCPでappディレクトリをocg-admanのホームディレクトリに置いておく
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo mv ~/* /var/www/uwsgi/
+mv: cannot move ‘/home/pcg-adman/app’ to ‘/var/www/uwsgi/app’: File exists
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo mv ~/* /var/www/uwsgi/[C[1@-[1@f[1@ 
+mv: cannot move ‘/home/pcg-adman/app’ to ‘/var/www/uwsgi/app’: File exists
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ #旧アプリの削除
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo rm -rf /var/www/uwsgi/app
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo mv ~/* /var/www/uwsgi/
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ 
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ 
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ cat /var/www/uwsgi/app/myapp.py
+from flask import Flask
+from flask import render_template
+from flask import escape
+import glob
+import os
+
+app = Flask(__name__)
+
+@app.route("/")
+def root():
+    raw_games = glob.glob("./templates/game/*")
+    games = []
+    for game in raw_games:
+        games.append(game.split('/')[-1])
+    return render_template("welcome.html", games = games)
+
+@app.route("/unity/<path:gameid>", methods=["GET"])
+def playUnityGame(gameid):
+    return render_template("game/" + escape(gameid) + "/" + "index.html", gameid=gameid)
+
+if __name__ == "__main__":
+    app.run()
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ cat /var/www/uwsgi/emperor.ini
+[uwsgi]
+emperor = /var/www/uwsgi/vassals
+logto = /var/log/uwsgi/enp_uwsgi.log
+touch-logreopen = /var/log/uwsgi/touch-logreopen
+master = true
+vacuum = true
+ignore-sigpipe = true
+ignore-write-errors = true
+disable-write-exception = true
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo systemctl restart uwsgi
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ sudo systemctl status uwsgi
+[1;32m●[0m uwsgi.service - uWSGI Emperor
+   Loaded: loaded (/etc/systemd/system/uwsgi.service; enabled; vendor preset: disabled)
+   Active: [1;32mactive (running)[0m since Wed 2020-12-30 08:39:02 JST; 1s ago
+  Process: 3867 ExecStartPre=/bin/chown -R uwsgi:uwsgi /var/run/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3864 ExecStartPre=/bin/mkdir -p /var/run/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3861 ExecStartPre=/bin/chown -R uwsgi:uwsgi /var/log/uwsgi (code=exited, status=0/SUCCESS)
+  Process: 3860 ExecStartPre=/bin/mkdir -p /var/log/uwsgi (code=exited, status=0/SUCCESS)
+ Main PID: 3871 (uwsgi)
+   Status: "The Emperor is governing 1 vassals"
+   CGroup: /system.slice/uwsgi.service
+           ├─3871 /usr/local/bin/uwsgi --ini /var/www/uwsgi/emperor.ini
+           ├─3874 /usr/local/bin/uwsgi --ini /var/www/uwsgi/emperor.ini
+           ├─3875 /usr/local/bin/uwsgi --ini parallelgame.net.ini
+           ├─3876 /usr/local/bin/uwsgi --ini parallelgame.net.ini
+           └─3877 /usr/local/bin/uwsgi --ini parallelgame.net.ini
+
+Dec 30 08:39:02 kapl001.parallelgame.net systemd[1]: Starting uWSGI Emperor...
+Dec 30 08:39:02 kapl001.parallelgame.net uwsgi[3871]: [uWSGI] getting INI configuration from /var/www/uwsgi/emperor.ini
+Dec 30 08:39:02 kapl001.parallelgame.net systemd[1]: Started uWSGI Emperor.
+]0;pcg-adman@kapl001:~[pcg-adman@kapl001 ~]$ 

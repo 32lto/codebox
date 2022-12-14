@@ -5,6 +5,5 @@ from . import views
 app_name = 'diary'
 urlpatterns = [
     path('', views.IndexView.as_view(), name="index"),
-    path('hoge/', views.IndexView2.as_view(), name="Hoge"),
-    path('foo/', views.Sugenakore.as_view(), name="Fooo"),
+    path('inquiry', views.InquiryView.as_view(), name="inquiry"),
 ]

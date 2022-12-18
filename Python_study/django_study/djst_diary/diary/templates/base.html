@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {% block active_inquiry %}{% endblock %}" href="#!">Inquiry</a>
+                            <a class="nav-link {% block active_inquiry %}{% endblock %}" href="{% url 'diary:inquiry' %}">INQUIRY</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
@@ -49,6 +49,20 @@
         </nav>
 
         {% block header %}{% endblock %}
+
+        {% if messages %}
+          <div class="container my-div-style">
+              <div class="row">
+                  <ul class="messages" style="list-style: none;">
+                      {% for message in messages %}
+                      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                          {{ message }}
+                      </li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+        {% endif %}
 
         {% block contents %}{% endblock %}
 

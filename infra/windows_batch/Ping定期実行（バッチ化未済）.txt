@@ -1,0 +1,4 @@
+$date = Get-Date -Format "yyyy-MMdd-HHmmss"
+ping -w ＜リトライ間隔・ミリ秒＞ -t ＜IP＞ | %{(Get-Date).ToString() + " $_"} | Tee-Object "＜パス・ファイル名＞_$date.txt" -Append
+
+

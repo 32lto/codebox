@@ -1,0 +1,74 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/centos-7.7"
+
+  config.vm.define "apache" do |apache|
+    apache.vm.network "public_network", ip: "192.168.11.10", bridge: "Realtek USB GbE Family Controller"
+    apache.vm.network "forwarded_port", guest: 22, host: 2222
+    apache.vm.network "forwarded_port", guest: 80, host: 30080
+    apache.vm.hostname = "HWEB001"
+    apache.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    apache.vm.provision "shell", privileged: false, inline: <<-SHELL
+      sudo yum install epel-release -y
+      sudo yum install httpd -y
+      sudo yum install -y vim
+      sudo systemctl start httpd
+      sudo systemctl enable httpd
+    SHELL
+      end
+  end
+
+  config.vm.define "tomcat" do |tomcat|
+    tomcat.vm.network "public_network", ip: "192.168.11.20", bridge: "Realtek USB GbE Family Controller"
+    tomcat.vm.network "forwarded_port", guest: 22, host: 2200
+    tomcat.vm.network "forwarded_port", guest: 8080, host: 38080
+    tomcat.vm.hostname = "HAPL001"
+    tomcat.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    tomcat.vm.provision "shell", privileged: false, inline: <<-SHELL
+      sudo yum install -y java-1.8.0-openjdk-devel
+      sudo yum install -y vim
+      sudo useradd -s /sbin/nologin tomcat
+      sudo curl -O https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.59/bin/apache-tomcat-9.0.59.tar.gz
+
+      sudo tar -xzvf ~/apache-tomcat-9.0.59.tar.gz
+      sudo mv ~/apache-tomcat-9.0.59 /opt
+      sudo chown -R tomcat:tomcat /opt/apache-tomcat-9.0.59
+
+    SHELL
+    end
+  end
+
+  config.vm.define "bind" do |bind|
+    bind.vm.network "forwarded_port", guest: 22, host: 2201
+    bind.vm.network "public_network", ip: "192.168.11.30", bridge: "Realtek USB GbE Family Controller"
+    bind.vm.hostname = "HDNS001"
+    bind.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+  end
+
+    config.vm.define "targetlinux" do |targetlinux|
+      targetlinux.vm.network "forwarded_port", guest: 22, host: 2200
+      targetlinux.vm.network "public_network", ip: "192.168.11.40", bridge: "Realtek USB GbE Family Controller"
+      targetlinux.vm.hostname = "ansibletarget"
+      targetlinux.vm.provider "virtualbox" do |vb|
+        vb.memory = "8192"
+  
+      targetlinux.vm.provision "shell", privileged: false, inline: <<-SHELL
+        sudo yum install update
+        SHELL
+      end
+    end
+  
+
+   config.vm.provision "shell", privileged: false, inline: <<-SHELL
+     sudo nmcli connection modify eth0 ipv4.dns 8.8.8.8
+     sudo systemctl restart NetworkManager
+#     sudo yum install epel-release -y
+#     sudo yum install httpd -y
+#     sudo systemctl start httpd
+#     sudo systemctl enable httpd
+   SHELL
+
+end

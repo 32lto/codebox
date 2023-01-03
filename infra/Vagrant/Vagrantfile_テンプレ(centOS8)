@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/8"
+  
+    config.vm.define "dweb001" do |dweb001|
+      dweb001.vm.network "public_network", ip: "172.28.1.1"
+      dweb001.vm.network "forwarded_port", guest: 22, host: 2401
+      dweb001.vm.network "forwarded_port", guest: 8000, host: 18000
+      dweb001.vm.hostname = "dweb001"
+      dweb001.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+      dweb001.vm.provision "shell", privileged: false, inline: <<-SHELL
+      SHELL
+    end
+  end
+
+   config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo nmcli connection modify "System eth0" ipv4.dns 8.8.8.8
+    sudo systemctl restart NetworkManager
+    sudo timedatectl set-timezone Asia/Tokyo
+    sudo dnf install epel-release -y
+    sudo dnf install -y vim
+  SHELL
+  #The first dnf command fails due to the end of support for CentOS8. 
+  #Therefore, after the "vagrant up" command, after logging in with SSH, 
+  #enter the command described below to change the mirror site referenced by the dnf command.
+
+  #sudo sed -i -e 's/^mirrorlist/#mirrorlist/g' -e 's/^#baseurl=http:\/\/mirror/baseurl=http:\/\/vault/g' /etc/yum.repos.d/CentOS-Linux-AppStream.repo
+  #sudo sed -i -e 's/^mirrorlist/#mirrorlist/g' -e 's/^#baseurl=http:\/\/mirror/baseurl=http:\/\/vault/g' /etc/yum.repos.d/CentOS-Linux-BaseOS.repo
+
+end

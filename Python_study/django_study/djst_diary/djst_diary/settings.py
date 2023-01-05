@@ -38,11 +38,11 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'filename': '/opt/venv/codebox/Python_study/django_study/djst_diary/logs/django.log',
             'formatter': 'prod',
             'when': 'D', #ログローテーション間隔"日"
             'interval': 1,#ログローテーション間隔（1日）
-            'backupCount': 7
+            'backupCount': 7,
         },
     },
 

@@ -4,3 +4,7 @@
 2023-01-08 09:11:19,625	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /
 2023-01-08 09:12:03,313	[ERROR]	/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py(Line:99)	Invalid HTTP_HOST header: '127.0.0.1'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
 2023-01-08 09:12:03,313	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /
+2023-01-08 10:52:20,188	[ERROR]	/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py(Line:99)	Invalid HTTP_HOST header: '127.0.0.1:18000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2023-01-08 10:52:20,216	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /
+2023-01-08 10:52:20,270	[ERROR]	/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py(Line:99)	Invalid HTTP_HOST header: '127.0.0.1:18000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2023-01-08 10:52:20,270	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /favicon.ico

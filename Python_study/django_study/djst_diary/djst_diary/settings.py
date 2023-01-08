@@ -1,4 +1,3 @@
-import os
 import environ
 from pathlib import Path
 from .settings_common import *
@@ -8,13 +7,11 @@ env.read_env(os.path.join(BASE_DIR,'.env'))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 SECRET_KEY = env.get_value('DJANGO_SECRET_KEY',str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 

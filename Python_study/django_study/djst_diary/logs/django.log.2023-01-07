@@ -1,0 +1,4 @@
+2023-01-07 09:01:39,682	[ERROR]	/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py(Line:99)	Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2023-01-07 09:01:39,723	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /
+2023-01-07 09:03:51,351	[ERROR]	/usr/local/lib/python3.8/site-packages/django/core/handlers/exception.py(Line:99)	Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+2023-01-07 09:03:51,352	[WARNING]	/usr/local/lib/python3.8/site-packages/django/utils/log.py(Line:224)	Bad Request: /
